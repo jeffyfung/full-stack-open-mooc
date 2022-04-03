@@ -32,14 +32,16 @@ const Statistics = ({good, neutral, bad}) => {
 
   if (getTotalFeedback() > 0) {
     return (
-      <div>
-        <StatDisplay name='good' value={good}/>
-        <StatDisplay name='neutral' value={neutral}/>
-        <StatDisplay name='bad' value={bad}/>
-        <StatDisplay name='all' value={getTotalFeedback()}/>
-        <StatDisplay name='average' value={getAverageScore()}/>
-        <StatDisplay name='positive' value={getPositivePercent()}/>
-      </div>
+      <table>
+        <tbody>
+          <tr><StatisticLine name='good' value={good}/></tr>
+          <tr><StatisticLine name='neutral' value={neutral}/></tr>
+          <tr><StatisticLine name='bad' value={bad}/></tr>
+          <tr><StatisticLine name='all' value={getTotalFeedback()}/></tr>
+          <tr><StatisticLine name='average' value={getAverageScore()}/></tr>
+          <tr><StatisticLine name='positive' value={getPositivePercent()}/></tr>
+        </tbody>
+      </table>
     )  
   }
 
@@ -47,6 +49,13 @@ const Statistics = ({good, neutral, bad}) => {
   
 }
 
-const StatDisplay = ({name, value}) => ( <div>{name + ' ' + value}</div> );
+const StatisticLine = ({name, value}) => {
+  return (
+    <>
+      <td>{name}</td>
+      <td>{value}</td>
+    </>
+  )
+}
 
 export default App

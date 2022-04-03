@@ -6,6 +6,23 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  return (
+    <div>
+      <h2>give feedback</h2>
+      <Button name={'good'} handleClick={() => setGood(good + 1)}/>
+      <Button name={'neutral'} handleClick={() => setNeutral(neutral + 1)}/>
+      <Button name={'bad'} handleClick={() => setBad(bad + 1)}/>
+
+      <h2>statistics</h2>
+      <Statistics good={good} neutral={neutral} bad={bad} />
+    </div>
+  )
+}
+
+const Button = ({name, handleClick}) => ( <button name={name} onClick={handleClick}>{name}</button> );
+
+const Statistics = ({good, neutral, bad}) => {
+
   const getTotalFeedback = () => good + neutral + bad;
   const getAverageScore = () => (good * 1 + neutral * 0 + bad * -1) / getTotalFeedback();
   const getPositivePercent = () => {
@@ -15,24 +32,16 @@ const App = () => {
 
   return (
     <div>
-      <h2>give feedback</h2>
-      <Button name={'good'} handleClick={() => setGood(good + 1)}/>
-      <Button name={'neutral'} handleClick={() => setNeutral(neutral + 1)}/>
-      <Button name={'bad'} handleClick={() => setBad(bad + 1)}/>
-
-      <h2>statistics</h2>
-      <Statistic name='good' value={good}/>
-      <Statistic name='neutral' value={neutral}/>
-      <Statistic name='bad' value={bad}/>
-      <Statistic name='all' value={getTotalFeedback()}/>
-      <Statistic name='average' value={getAverageScore()}/>
-      <Statistic name='positive' value={getPositivePercent()}/>
+      <StatDisplay name='good' value={good}/>
+      <StatDisplay name='neutral' value={neutral}/>
+      <StatDisplay name='bad' value={bad}/>
+      <StatDisplay name='all' value={getTotalFeedback()}/>
+      <StatDisplay name='average' value={getAverageScore()}/>
+      <StatDisplay name='positive' value={getPositivePercent()}/>
     </div>
   )
 }
 
-const Button = ({name, handleClick}) => ( <button name={name} onClick={handleClick}>{name}</button> );
-
-const Statistic = ({name, value}) => ( <div>{name + ' ' + value}</div> );
+const StatDisplay = ({name, value}) => ( <div>{name + ' ' + value}</div> );
 
 export default App

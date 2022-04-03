@@ -30,16 +30,21 @@ const Statistics = ({good, neutral, bad}) => {
     return percentage + ' %';
   }
 
-  return (
-    <div>
-      <StatDisplay name='good' value={good}/>
-      <StatDisplay name='neutral' value={neutral}/>
-      <StatDisplay name='bad' value={bad}/>
-      <StatDisplay name='all' value={getTotalFeedback()}/>
-      <StatDisplay name='average' value={getAverageScore()}/>
-      <StatDisplay name='positive' value={getPositivePercent()}/>
-    </div>
-  )
+  if (getTotalFeedback() > 0) {
+    return (
+      <div>
+        <StatDisplay name='good' value={good}/>
+        <StatDisplay name='neutral' value={neutral}/>
+        <StatDisplay name='bad' value={bad}/>
+        <StatDisplay name='all' value={getTotalFeedback()}/>
+        <StatDisplay name='average' value={getAverageScore()}/>
+        <StatDisplay name='positive' value={getPositivePercent()}/>
+      </div>
+    )  
+  }
+
+  return (<div>No feedback given</div>)
+  
 }
 
 const StatDisplay = ({name, value}) => ( <div>{name + ' ' + value}</div> );

@@ -26,28 +26,46 @@ const App = () => {
   )
 }
 
-const ResultDisplay = ({countryList}) => {
+const ResultDisplay = ({ countryList }) => {
+  const [countryToShowDetails, setCountryToShowDetails] = useState('');
+
+  if (countryToShowDetails) {
+    return <CountryView targetCountry={countryToShowDetails}/>
+  }
   if (countryList.length > 10) {
     return <>Too many matches, specify another filter</>
   }
   if (countryList.length === 1) {
-    return (
-      <>
-        <br/>
-        <div>capital {countryList[0].capital}</div>
-        <div>area {countryList[0].area}</div>
-
-        <br/>
-        <LangaugeDisplay targetCountry={countryList[0]}/>
-
-        <br/>
-        <FlagDisplay targetCountry={countryList[0]}/>
-        
-      </>
-    )
+    return <CountryView targetCountry={countryList[0]}/>
   }
-  return <>{countryList.map(country => (<div key={country.name.common}>{country.name.common}</div>))}</>
+  return (
+    <>
+      {countryList.map(country => (
+        <div key={country.name.common}>
+          {country.name.common} <ShowButton targetCountry={country} handleClick={setCountryToShowDetails}/>
+        </div>))
+      }
+    </>
+  )
 }
+
+const ShowButton = ({ targetCountry, handleClick }) => (
+  <button type="button" onClick={(event) => handleClick(targetCountry)}>show</button>
+)
+
+const CountryView = ({ targetCountry }) => (
+  <>
+    <br/>
+    <div>capital {targetCountry.capital}</div>
+    <div>area {targetCountry.area}</div>
+
+    <br/>
+    <LangaugeDisplay targetCountry={targetCountry}/>
+
+    <br/>
+    <FlagDisplay targetCountry={targetCountry}/>
+  </>
+)
 
 const LangaugeDisplay = ({ targetCountry }) => (
   <div>
@@ -66,4 +84,5 @@ const FlagDisplay = ({ targetCountry }) => {
     return <><img src={targetCountry.flags.svg}/></>
   }
 }
+
 export default App;

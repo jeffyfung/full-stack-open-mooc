@@ -8,7 +8,7 @@ const App = () => {
 
   const getFilteredList = (list, text) => {
     console.log(text);
-    return list.filter(item => item.name?.common?.includes(text));
+    return list.filter(item => item.name?.common?.toLowerCase().includes(text.toLowerCase()));
   }
 
   // can i only call it once after the first render?

@@ -31,9 +31,11 @@ const App = () => {
   const updateEntriesBySearch = (event) => setSearchText(event.target.value);
 
   const deletePerson = (person) => {
-    PhonebookServices.removePerson(person)
-      .then(res => setPersons(persons.filter(p => p.id != person.id)))
-      .catch(err => console.log(err));
+    if (window.confirm(`Delete ${person.name}`)) {
+      PhonebookServices.removePerson(person)
+        .then(res => setPersons(persons.filter(p => p.id != person.id)))
+        .catch(err => console.log(err));
+    }
   }
 
   const getFilteredPersons = () => persons.filter(person => person.name.toLowerCase().includes(searchText));

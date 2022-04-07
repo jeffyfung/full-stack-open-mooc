@@ -4,29 +4,29 @@ import PersonForm from './PersonForm'
 import axios from 'axios'
 
 const App = () => {
+  const url = 'http://localhost:3001';
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons')
+    axios.get(`${url}/persons`)
       .then(response => setPersons(response.data));
   }, [])
 
   const addPerson = (event) => {
     event.preventDefault();
-    if (persons.filter((person) => person.name === newName).length > 0) {
+    if (persons.find((person) => person.name === newName)) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      setPersons(persons.concat(
-        {
-          name: newName,
-          number: newNumber
-        }
-      ));
-      setNewName('');
-      setNewNumber('');
+      axios.post(`${url}/persons`, { name: newName, number: newNumber })
+        .then(res => {
+          console.log(res.data);
+          setPersons(persons.concat(res.data));
+          setNewName('');
+          setNewNumber('');
+        })
     }
   }
 

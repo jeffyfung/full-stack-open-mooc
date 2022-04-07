@@ -15,8 +15,19 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    if (persons.find((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+    const existingEntry = persons.find((person) => person.name === newName);
+    if (existingEntry) {
+      if (newNumber === existingEntry.number) {
+        alert(`${newName} is already added to phonebook`);
+      } else if (window.confirm(`${existingEntry.name} is already added to phonebook, replace the old number with a new one?`)) {
+        existingEntry.number = newNumber;
+        PhonebookServices.updateNumber(existingEntry)
+          .then(res => {
+            setPersons(persons.map(p => p.id === res.data.id? res.data : p));
+            setNewName('');
+            setNewNumber('');
+          })
+      }
     } else {
       PhonebookServices.addPerson({ name: newName, number: newNumber })
         .then(res => {
@@ -39,6 +50,7 @@ const App = () => {
   }
 
   const getFilteredPersons = () => persons.filter(person => person.name.toLowerCase().includes(searchText));
+
   return (
     <div>
       <h2>Phonebook</h2>

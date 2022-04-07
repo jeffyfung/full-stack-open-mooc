@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Filter from './Filter'
-import PersonForm from './PersonForm'
+import PersonForm from './components/PersonForm'
 import PhonebookServices from './services/Phonebook'
 
 const App = () => {
@@ -30,6 +30,12 @@ const App = () => {
 
   const updateEntriesBySearch = (event) => setSearchText(event.target.value);
 
+  const deletePerson = (person) => {
+    PhonebookServices.removePerson(person)
+      .then(res => setPersons(persons.filter(p => p.id != person.id)))
+      .catch(err => console.log(err));
+  }
+
   const getFilteredPersons = () => persons.filter(person => person.name.toLowerCase().includes(searchText));
   return (
     <div>
@@ -46,7 +52,11 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      {getFilteredPersons().map(person => <div key={person.name}>{person.name} {person.number}</div>)}
+      {getFilteredPersons().map(person => (
+        <div key={person.name}>
+          {person.name} {person.number} <button type='button' onClick={() => deletePerson(person)}>delete</button>
+        </div>
+      ))}
     </div>
   )
 }

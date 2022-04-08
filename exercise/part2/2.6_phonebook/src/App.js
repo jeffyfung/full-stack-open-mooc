@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import Filter from './Filter'
 import PersonForm from './components/PersonForm'
 import PhonebookServices from './services/Phonebook'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [searchText, setSearchText] = useState('');
+  const [statusMessage, setStatusMessage] = useState(null);
 
   useEffect(() => {
     PhonebookServices.getAll().then(res => setPersons(res.data))
@@ -26,6 +28,8 @@ const App = () => {
             setPersons(persons.map(p => p.id === res.data.id? res.data : p));
             setNewName('');
             setNewNumber('');
+            setStatusMessage(`Updated ${res.data.name}`);
+            setTimeout(() => setStatusMessage(null), 5000);
           })
       }
     } else {
@@ -34,6 +38,8 @@ const App = () => {
           setPersons(persons.concat(res.data));
           setNewName('');
           setNewNumber('');
+          setStatusMessage(`Added ${res.data.name}`);
+          setTimeout(() => setStatusMessage(null), 5000);
         })
         .catch(err => console.log(err));
     }
@@ -54,6 +60,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message = {statusMessage}/>
+
       <Filter value={searchText} handleChange={updateEntriesBySearch} />
       
       <h2>add a new</h2>

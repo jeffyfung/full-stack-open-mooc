@@ -28,20 +28,28 @@ const App = () => {
             setPersons(persons.map(p => p.id === res.data.id? res.data : p));
             setNewName('');
             setNewNumber('');
-            setStatusMessage(`Updated ${res.data.name}`);
-            setTimeout(() => setStatusMessage(null), 5000);
+            setStatusMessage({ content: `Updated ${res.data.name}`, status: 0 });
+            setTimeout(() => setStatusMessage(null), 5000)
+          })
+          .catch(err => {
+            setStatusMessage({ content: `Information of ${existingEntry.name} already removed from server`, status: 1 });
+            console.log(err);
           })
       }
     } else {
+      let tmpName = newName;
       PhonebookServices.addPerson({ name: newName, number: newNumber })
         .then(res => {
           setPersons(persons.concat(res.data));
           setNewName('');
           setNewNumber('');
-          setStatusMessage(`Added ${res.data.name}`);
+          setStatusMessage({ content: `Updated ${res.data.name}`, status: 0 });
           setTimeout(() => setStatusMessage(null), 5000);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          setStatusMessage({ content: `Information of ${tmpName} already removed from server`, status: 1 });
+          console.log(err);
+        })
     }
   }
 

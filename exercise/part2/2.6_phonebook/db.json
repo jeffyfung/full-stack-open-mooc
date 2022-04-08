@@ -11,24 +11,9 @@
       "id": 3
     },
     {
-      "name": "jeff",
-      "number": "1",
-      "id": 4
-    },
-    {
-      "name": "ak",
-      "number": "1010",
-      "id": 5
-    },
-    {
       "name": "tom",
       "number": "111",
       "id": 6
-    },
-    {
-      "name": "abc",
-      "number": "123",
-      "id": 7
     }
   ]
 }

@@ -36,6 +36,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/persons', (req, res) => {
-  console.log('get persons');
   res.json(persons);
+});
+
+app.get('/info', (req, res) => {
+  let html = `<p>Phonebook has info for ${persons.length} people</p>` + 
+    `<p>${new Date()}</p>`;
+  res.send(html);
 });

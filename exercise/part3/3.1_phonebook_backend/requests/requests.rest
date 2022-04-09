@@ -3,3 +3,6 @@ GET http://localhost:{{$dotenv PORT}}/ http/1.1
 
 ###
 GET http://localhost:{{$dotenv PORT}}/api/persons http/1.1
+
+###
+GET http://localhost:{{$dotenv PORT}}/info http/1.1

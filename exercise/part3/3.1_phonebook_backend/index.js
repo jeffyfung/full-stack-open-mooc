@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const {v4: uuidv4} = require('uuid');
+const morgan = require('morgan');
 require('dotenv').config();
 
 app.listen(process.env.PORT || 3001, () => {
@@ -8,6 +9,7 @@ app.listen(process.env.PORT || 3001, () => {
 })
 
 app.use(express.json());
+app.use(morgan('tiny'));
 
 let persons = [
   { 
@@ -37,7 +39,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/persons', (req, res) => {
-  console.log('calling api GET /api/persons');
   res.json(persons);
 });
 
@@ -48,7 +49,6 @@ app.get('/info', (req, res) => {
 });
 
 app.get('/api/persons/:id', (req, res) => {
-  console.log(req.headers);
   let targetId = Number(req.params.id);
   let targetEntry = persons.find(p => p.id === targetId);
   if (targetEntry) {
@@ -59,14 +59,12 @@ app.get('/api/persons/:id', (req, res) => {
 });
 
 app.delete('/api/persons/:id', (req, res) => {
-  console.log('calling api DELETE /api/persons/:id');
   let targetId = Number(req.params.id);
   persons = persons.filter(p => p.id !== targetId);
   res.status(204).end();
 })
 
 app.post('/api/persons', (req, res) => {
-  console.log('calling api POST /api/persons');
   if (req.body.name == undefined || req.body.number == undefined) {
     res.status(500).json({ error: "name or number cannot be empty"});
     return;

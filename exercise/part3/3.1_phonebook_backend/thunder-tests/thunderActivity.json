@@ -40,5 +40,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "59a3c94e-c5cd-4f3b-a4a3-485de583baa3",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:{{PORT}}/info",
+    "url": "http://localhost:{{PORT}}/info",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-04-10T15:20:27.803Z",
+    "modified": "2022-04-10T15:29:32.667Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

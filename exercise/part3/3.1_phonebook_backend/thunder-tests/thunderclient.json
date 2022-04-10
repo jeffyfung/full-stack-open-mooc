@@ -8,12 +8,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2022-04-10T14:24:18.416Z",
-    "modified": "2022-04-10T14:38:29.993Z",
+    "modified": "2022-04-10T15:00:47.701Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"name\": \"jeffy fung\",\n    \"number\": \"1111111\"\n}",
+      "raw": "{\n    \"name\": \"tom chan\",\n    \"number\": \"11111111\"\n}",
       "form": []
     },
     "tests": []

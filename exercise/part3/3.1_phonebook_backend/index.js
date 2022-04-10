@@ -67,6 +67,16 @@ app.delete('/api/persons/:id', (req, res) => {
 
 app.post('/api/persons', (req, res) => {
   console.log('calling api POST /api/persons');
+  if (req.body.name == undefined || req.body.number == undefined) {
+    res.status(500).json({ error: "name or number cannot be empty"});
+    return;
+  }
+
+  if (persons.find(p => p.name === req.body.name)) {
+    res.status(500).json({ error: "name must be unique"});
+    return;
+  }
+
   let newPerson = {
     id: uuidv4(),
     name: req.body.name,

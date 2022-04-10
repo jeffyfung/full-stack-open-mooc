@@ -6,3 +6,9 @@ GET http://localhost:{{$dotenv PORT}}/api/persons http/1.1
 
 ###
 GET http://localhost:{{$dotenv PORT}}/info http/1.1
+
+###
+GET http://localhost:{{$dotenv PORT}}/api/persons/3 http/1.1
+
+###
+DELETE http://localhost:{{$dotenv PORT}}/api/persons/3 http/1.1

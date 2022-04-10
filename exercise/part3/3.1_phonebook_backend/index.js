@@ -8,7 +8,7 @@ app.listen(process.env.PORT || 3001, () => {
 
 app.use(express.json());
 
-const persons = [
+let persons = [
   { 
     "id": 1,
     "name": "Arto Hellas", 
@@ -55,3 +55,10 @@ app.get('/api/persons/:id', (req, res) => {
     res.status(404).end();
   }
 });
+
+app.delete('/api/persons/:id', (req, res) => {
+  console.log('calling api /api/persons/:id');
+  let targetId = Number(req.params.id);
+  persons = persons.filter(p => p.id !== targetId);
+  res.status(204).end();
+})

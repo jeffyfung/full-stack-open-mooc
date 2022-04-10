@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "5dbd079e-4e64-446f-b6e2-86875a0d6c7f",
+    "colId": "85122e58-3192-4e53-b9bb-1f4c4688ed07",
+    "containerId": "",
+    "name": "http://localhost:3001/api/persons",
+    "url": "http://localhost:{{PORT}}/api/persons",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-04-10T14:24:18.416Z",
+    "modified": "2022-04-10T14:28:01.945Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

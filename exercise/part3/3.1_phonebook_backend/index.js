@@ -40,7 +40,18 @@ app.get('/api/persons', (req, res) => {
 });
 
 app.get('/info', (req, res) => {
-  let html = `<p>Phonebook has info for ${persons.length} people</p>` + 
-    `<p>${new Date()}</p>`;
+  let html = `<p>Phonebook has info for ${persons.length} people</p>`
+    + `<p>${new Date()}</p>`;
   res.send(html);
+});
+
+app.get('/api/persons/:id', (req, res) => {
+  console.log(req.headers);
+  let targetId = Number(req.params.id);
+  let targetEntry = persons.find(p => p.id === targetId);
+  if (targetEntry) {
+    res.json(targetEntry);
+  } else {
+    res.status(404).end();
+  }
 });

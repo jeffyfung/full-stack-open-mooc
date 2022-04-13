@@ -33,6 +33,7 @@ const App = () => {
           })
           .catch(err => {
             setStatusMessage({ content: `Information of ${existingEntry.name} already removed from server`, status: 1 });
+            setTimeout(() => setStatusMessage(null), 5000);
             console.log(err);
           })
       }
@@ -48,6 +49,7 @@ const App = () => {
         })
         .catch(err => {
           setStatusMessage({ content: `Information of ${tmpName} already removed from server`, status: 1 });
+          setTimeout(() => setStatusMessage(null), 5000);
           console.log(err);
         })
     }

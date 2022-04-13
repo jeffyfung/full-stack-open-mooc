@@ -17,12 +17,12 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
-    const existingEntry = persons.find((person) => person.name === newName);
+    let existingEntry = persons.find((person) => person.name === newName);
     if (existingEntry) {
       if (newNumber === existingEntry.number) {
         alert(`${newName} is already added to phonebook`);
       } else if (window.confirm(`${existingEntry.name} is already added to phonebook, replace the old number with a new one?`)) {
-        existingEntry.number = newNumber;
+        existingEntry = {...existingEntry, number: newNumber};
         PhonebookServices.updateNumber(existingEntry)
           .then(res => {
             setPersons(persons.map(p => p.id === res.data.id? res.data : p));
@@ -32,7 +32,7 @@ const App = () => {
             setTimeout(() => setStatusMessage(null), 5000)
           })
           .catch(err => {
-            setStatusMessage({ content: `Information of ${existingEntry.name} already removed from server`, status: 1 });
+            setStatusMessage({ content: `Information of ${existingEntry.name} cannot be added to the server`, status: 1 });
             setTimeout(() => setStatusMessage(null), 5000);
             console.log(err);
           })
@@ -60,7 +60,7 @@ const App = () => {
   const deletePerson = (person) => {
     if (window.confirm(`Delete ${person.name}`)) {
       PhonebookServices.removePerson(person)
-        .then(res => setPersons(persons.filter(p => p.id != person.id)))
+        .then(res => setPersons(persons.filter(p => p.id !== person.id)))
         .catch(err => console.log(err));
     }
   }

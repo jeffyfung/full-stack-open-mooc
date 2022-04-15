@@ -85,8 +85,8 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      {getFilteredPersons().map(person => (
-        <div key={person.name}>
+      {getFilteredPersons().map((person, idx) => (
+        <div key={idx + person.name}>
           {person.name} {person.number} <button type='button' onClick={() => deletePerson(person)}>delete</button>
         </div>
       ))}

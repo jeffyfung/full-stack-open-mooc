@@ -48,7 +48,7 @@ const App = () => {
           setTimeout(() => setStatusMessage(null), 5000);
         })
         .catch(err => {
-          setStatusMessage({ content: `Information of ${tmpName} already removed from server`, status: 1 });
+          setStatusMessage({ content: err.response.data, status: 1 });
           setTimeout(() => setStatusMessage(null), 5000);
           console.log(err);
         })
